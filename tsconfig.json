@@ -1,19 +1,7 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@pages/*": [
-        "src/pages/*"
-      ],
-      "@plugins/*": [
-        "src/plugins/*"
-      ],
-      "@shared/*": [
-        "src/shared/*"
-      ],
-      "@/*": [
-        "src/*"
-      ]
-    }
-  }
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
 }

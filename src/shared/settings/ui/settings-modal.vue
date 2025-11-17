@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Dialog from 'primevue/dialog';
 import { useSettings } from '../useSettings';
-import { shallowRef, ref, watch } from 'vue';
+import { shallowRef, watch } from 'vue';
 import Select from 'primevue/select';
 import Button from 'primevue/button';
 import InputNumber from 'primevue/inputnumber';
@@ -30,28 +30,52 @@ watch(
   },
 );
 
-const optionsDisplay = ref([
+type ToggleOption = {
+  id: string;
+  label: string;
+  description: string;
+  getValue: () => boolean;
+  setValue: (value: boolean) => void;
+};
+
+const toggleOptions: ToggleOption[] = [
   {
     id: 'isEnabledAutoRun',
     label: 'Автоматически запускать код',
     description: 'Код будет запускаться в фоновом режиме',
+    getValue: () => settings.value.isEnabledAutoRun,
+    setValue: (value) => {
+      settings.value.isEnabledAutoRun = value;
+    },
   },
   {
     id: 'isClearConsoleOnRun',
     label: 'Очищать консоль при запуске',
     description: 'Очищать консоль при каждом запуске кода',
+    getValue: () => settings.value.isClearConsoleOnRun,
+    setValue: (value) => {
+      settings.value.isClearConsoleOnRun = value;
+    },
   },
   {
     id: 'minimap',
     label: 'Мини-карта',
     description: 'Показывать мини-карту кода',
+    getValue: () => settings.value.minimap.enabled,
+    setValue: (value) => {
+      settings.value.minimap.enabled = value;
+    },
   },
   {
     id: 'automaticLayout',
     label: 'Автоматический размер',
     description: 'Автоматически подстраивать размер редактора',
+    getValue: () => settings.value.automaticLayout,
+    setValue: (value) => {
+      settings.value.automaticLayout = value;
+    },
   },
-]);
+];
 </script>
 
 <template>
@@ -123,7 +147,7 @@ const optionsDisplay = ref([
         </label>
 
         <div class="flex flex-col gap-3 pl-2">
-          <template v-for="option in optionsDisplay" :key="option.id">
+          <template v-for="option in toggleOptions" :key="option.id">
             <div class="flex items-center justify-between gap-4">
               <div class="flex flex-col gap-1 flex-1">
                 <label
@@ -136,7 +160,11 @@ const optionsDisplay = ref([
                   {{ option.description }}
                 </span>
               </div>
-              <ToggleSwitch v-model="settings[option.id]" :id="option.id" />
+              <ToggleSwitch
+                :model-value="option.getValue()"
+                :id="option.id"
+                @update:modelValue="option.setValue"
+              />
             </div>
           </template>
         </div>

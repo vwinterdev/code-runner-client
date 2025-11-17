@@ -101,6 +101,6 @@ const contextMenuItems = shallowRef([
         </div>
       </template>
     </Splitter2Part>
-    <!-- <ContextMenu global :model="contextMenuItems"/> -->
+    <ContextMenu global :model="contextMenuItems" />
   </div>
 </template>

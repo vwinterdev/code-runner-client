@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { LogLineAdapter } from '../adapters/log';
 
-import { computed, watch } from 'vue';
+import { watch } from 'vue';
 import 'vue-console-feed/style.css';
 
 import { Console, DataAPI } from 'vue-console-feed';
