@@ -6,13 +6,16 @@ import Tooltip from 'primevue/tooltip';
 import 'primeicons/primeicons.css';
 
 export default {
-    install: (app: App) => {
-        app.use(PrimeVue, {
-            theme: {
-                preset: Aura
-            }
-        });
+  install: (app: App) => {
+    app.use(PrimeVue, {
+      theme: {
+        preset: Aura,
+        options: {
+          darkModeSelector: '.dark',
+        },
+      },
+    });
 
-        app.directive('tooltip', Tooltip);
-    }
-}
+    app.directive('tooltip', Tooltip);
+  },
+};
